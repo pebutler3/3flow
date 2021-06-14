@@ -1,25 +1,20 @@
 <template>
   <section class="pokemon-list">
     <h1>Select Your Favorite Pokemon</h1>
-    <div class="pokemon-list__pagination">
-      <button @click="paginatePrevious" v-if="getPagination.previous">PREV</button>
-      <button @click="paginateNext" v-if="getPagination.next">NEXT</button>
-    </div>
+    <pagination />
     <ul>
       <li v-for="pokemon in pokemonList" :key="pokemon.name">
         <span>{{ pokemon.name }}</span>
         <view-pokemon-button :url="pokemon.url" :isDisabled="getActivePokemon && (getActivePokemon.name === pokemon.name)" />
       </li>
     </ul>
-    <div class="pokemon-list__pagination">
-      <button @click="paginatePrevious" v-if="getPagination.previous">PREV</button>
-      <button @click="paginateNext" v-if="getPagination.next">NEXT</button>
-    </div>
+    <pagination />
   </section>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
+import Pagination from '@/components/Pagination';
 import ViewPokemonButton from '@/components/ViewPokemonButton';
 
 export default {
@@ -31,13 +26,11 @@ export default {
     }
   },
   components: {
+    Pagination,
     ViewPokemonButton,
   },
   computed: {
-    ...mapGetters(['getActivePokemon', 'getPagination']),
-  },
-  methods: {
-    ...mapActions(['paginatePrevious', 'paginateNext']),
+    ...mapGetters(['getActivePokemon']),
   },
 }
 </script>
